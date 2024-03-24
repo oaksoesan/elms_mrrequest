@@ -6,6 +6,13 @@ class MrRequest(models.Model):
 
     # Left Panel (User)
     name = fields.Char('Name')
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('requested', 'Requested'),
+        ('assigned', 'Assigned'),
+        ('approved', 'Approved'),
+        ('completed', 'Completed'),
+    ])
     res_partner_id = fields.Many2one('res.partner', required=True,
                                      string='Requested By')
     department = fields.Many2one('hr.department', string="Department",
@@ -16,9 +23,16 @@ class MrRequest(models.Model):
             ('1', 'Normal'),
             ('2', 'High')
         ],
-        'Priority'),
+        'Priority')
     date_time = fields.Datetime(string='Request Date & Time', required=True)
     mr_location_id = fields.Many2one('mrrequest.location', string='Location')
+    job_section = fields.Selection([
+        ('electrical', 'Electrical'),
+        ('plumbing', 'Plumbing'),
+        ('acmv', 'ACMV'),
+        ('civil', 'Civil'),
+        ('general', 'General'),
+    ])
     problem_detail = fields.Text('Problem Detail')
 
     # Right Panel (MR Admin)

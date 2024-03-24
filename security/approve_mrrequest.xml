@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+<!-- Define the group -->
+<record id="approved_MandE_user_group" model="res.groups">
+    <field name="name">Access by M and E</field>
+</record>
+
+<!-- Define the access rule -->
+<!-- <record id="approved_MandE_user_rule" model="ir.rule">
+    <field name="name">Access by M and E rule</field>
+    <field name="model_id" ref="model_mrrequest"/>
+    <field name="domain_force">[(1,'=',1)]</field>
+    <field name="groups" eval="[(4, 0, [ref('approved_MandE_user_group')])]"/>
+    <field name="perm_create" eval="1"/>
+    <field name="perm_write" eval="1"/>
+    <field name="perm_unlink" eval="1"/>
+    <field name="perm_read" eval="1"/>
+</record> -->
+<!-- <record id="base.check_in_user" model="res.groups">
+            <field name="name">Access by M and E</field>
+            <field name="category_id" ref="elms_mrrequest.module_category_mrrequest"/>
+            <field name="comment">this user will be able to view, create and edit mrrequest menu.</field>
+        </record> -->
+<record id="approved_MandE_user_rule" model="ir.rule">
+            <field name="name">Access by M and E rule</field>
+            <field name="model_id" ref="model_mrrequest"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4,ref('approved_MandE_user_group'))]"/>
+        </record>
+    </data>
+</openerp>

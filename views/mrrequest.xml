@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="mrrequest_form" model="ir.ui.view">
+            <field name="name">mrrequest Form</field>
+            <field name="model">mrrequest</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                             <field name="mrdate" />  
+                    <field name="department" />     
+                    <field name="location_id" />  
+                    <field name="prob" />  
+                    <field name="priority" />  
+                    <field name="action_plan" groups="elms_mrrequest.approved_MandE_user_group"/>  
+                    <field name="to_assign" />  
+                    <field name="Estimate_cost" />  
+                    <field name="Estimate_time" />   
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="mrrequest_tree" model="ir.ui.view">
+            <field name="name">MR request Tree</field>
+            <field name="model">mrrequest</field>
+            <field name="arch" type="xml">
+                <tree string="mrrequest">
+                    <field name="mrdate" />  
+                    <field name="department" />     
+                    <field name="location_id" />  
+                    <field name="prob" />  
+                    <field name="priority" />  
+                    <field name="action_plan" />  
+                    <field name="to_assign" />  
+                    <field name="Estimate_cost" />  
+                    <field name="Estimate_time" />   
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_mrrequest" model="ir.actions.act_window">
+            <field name="name">MR request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrrequest</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="mrrequest_tree" />
+        </record>
+
+        <menuitem id="mrrequest_menu" name="MR request" sequence="15" />
+        <menuitem id="mmrequest_info_menu" name="MR request" parent="elms_mrrequest.mrrequest_menu" sequence="1"/>
+        <menuitem id="mmrequest_info1_menu" name="MR request" parent="elms_mrrequest.mmrequest_info_menu" sequence="1" action="action_mrrequest"/>
+    </data>
+</openerp>

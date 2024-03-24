@@ -19,9 +19,12 @@ class MrRequest(models.Model):
                                  store=True)
     priority = fields.Selection(
         [
-            ('0', 'Low'),
-            ('1', 'Normal'),
-            ('2', 'High')
+            ('0', 'Very Low'),
+            ('1', 'Low'),
+            ('2', 'Normal'),
+            ('3', 'High'),
+            ('4', 'Serious'),
+            ('5', 'Urgent'),
         ],
         'Priority')
     date_time = fields.Datetime(string='Request Date & Time', required=True)

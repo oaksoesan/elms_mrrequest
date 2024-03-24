@@ -31,9 +31,10 @@
                                     <field name="res_partner_id"/>
                                     <field name="department"/>
                                     <field name="priority" widget="priority"
-                                           class="mr-3"/>
+                                           class=""/>
                                     <field name="date_time"/>
                                     <field name="mr_location_id"/>
+                                    <field name="job_section"/>
                                     <field name="problem_detail"/>
                                 </group>
                             </div>

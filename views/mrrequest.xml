@@ -1,56 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <record id="mrrequest_form" model="ir.ui.view">
-            <field name="name">mrrequest Form</field>
+        <record id="action_mrrequest" model="ir.actions.act_window">
+            <field name="name">MR Request Action</field>
+            <field name="res_model">mrrequest</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="mrrequest_menu" name="MR request" sequence="15"/>
+        <menuitem id="mmrequest_info_menu" name="MR request"
+                  parent="elms_mrrequest.mrrequest_menu" sequence="1"/>
+        <menuitem id="mmrequest_info1_menu" name="MR request"
+                  parent="elms_mrrequest.mmrequest_info_menu" sequence="1"
+                  action="action_mrrequest"/>
+
+        <record id="view_mrrequest_form" model="ir.ui.view">
+            <field name="name">mrrequest.form</field>
             <field name="model">mrrequest</field>
             <field name="arch" type="xml">
-                <form>
+                <form string="MR Request">
+                    <header>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="requested,assigned,approved,completed"/>
+                    </header>
                     <sheet>
                         <group>
-                             <field name="mrdate" />  
-                    <field name="department" />     
-                    <field name="location_id" />  
-                    <field name="prob" />  
-                    <field name="priority" />  
-                    <field name="action_plan" groups="elms_mrrequest.approved_MandE_user_group"/>  
-                    <field name="to_assign" />  
-                    <field name="Estimate_cost" />  
-                    <field name="Estimate_time" />   
+                            <div class="oe_title">
+                                <h2>Request Information</h2>
+                                <group>
+                                    <field name="res_partner_id"/>
+                                    <field name="department"/>
+                                    <field name="priority" widget="priority"
+                                           class="mr-3"/>
+                                    <field name="date_time"/>
+                                    <field name="mr_location_id"/>
+                                    <field name="problem_detail"/>
+                                </group>
+                            </div>
+                            <div class="oe_title">
+                                <h2>Admin Information</h2>
+                                <group>
+                                    <field name="hr_employee_id"/>
+                                    <field name="estimate_cost"/>
+                                    <field name="estimate_start_time"/>
+                                    <field name="estimate_end_time"/>
+                                    <field name="actual_start_time"/>
+                                    <field name="actual_end_time"/>
+                                    <field name="job_status"/>
+                                    <field name="maintenance_detail"/>
+                                </group>
+                            </div>
+                            <div class="oe_title">
+                                <h2>Feedback</h2>
+                                <group>
+                                    <field name="received_status"/>
+                                    <field name="received_date_time"/>
+                                    <field name="received_note"/>
+                                    <field name="approver_comment"/>
+                                </group>
+                            </div>
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
 
+
         <record id="mrrequest_tree" model="ir.ui.view">
             <field name="name">MR request Tree</field>
             <field name="model">mrrequest</field>
             <field name="arch" type="xml">
-                <tree string="mrrequest">
-                    <field name="mrdate" />  
-                    <field name="department" />     
-                    <field name="location_id" />  
-                    <field name="prob" />  
-                    <field name="priority" />  
-                    <field name="action_plan" />  
-                    <field name="to_assign" />  
-                    <field name="Estimate_cost" />  
-                    <field name="Estimate_time" />   
+                <tree>
                 </tree>
             </field>
         </record>
-
-        <record id="action_mrrequest" model="ir.actions.act_window">
-            <field name="name">MR request</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">mrrequest</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="mrrequest_tree" />
-        </record>
-
-        <menuitem id="mrrequest_menu" name="MR request" sequence="15" />
-        <menuitem id="mmrequest_info_menu" name="MR request" parent="elms_mrrequest.mrrequest_menu" sequence="1"/>
-        <menuitem id="mmrequest_info1_menu" name="MR request" parent="elms_mrrequest.mmrequest_info_menu" sequence="1" action="action_mrrequest"/>
     </data>
 </openerp>

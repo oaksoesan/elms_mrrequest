@@ -37,8 +37,8 @@ This module will build new forms and lists view for ELMS System.
     """,
     'depends': ['mail'],
     'data' : [
-        'views/mrrequest.xml',
-        'security/ir.model.access.csv',
         'security/approve_mrrequest.xml',
+        'security/ir.model.access.csv',
+        'views/mrrequest.xml',
     ],
 }

@@ -1,5 +1,6 @@
 from openerp import fields, models, api
 
+
 class MrRequest(models.Model):
     _name = 'mrrequest'
     _description = 'MR request model'
@@ -8,11 +9,12 @@ class MrRequest(models.Model):
     name = fields.Char('Name')
     state = fields.Selection([
         ('draft', 'Draft'),
+        ('cancel', 'Canceled'),
         ('requested', 'Requested'),
         ('assigned', 'Assigned'),
         ('approved', 'Approved'),
         ('completed', 'Completed'),
-    ])
+    ], string='State', default="draft")
     res_partner_id = fields.Many2one('res.partner', required=True,
                                      string='Requested By')
     department = fields.Many2one('hr.department', string="Department",
@@ -62,6 +64,34 @@ class MrRequest(models.Model):
     received_date_time = fields.Datetime(string='Received At')
     received_note = fields.Text('Received Note')
     approver_comment = fields.Text('Approver Comment')
+
+    @api.multi
+    def to_draft(self):
+        self.state = 'draft'
+
+    @api.multi
+    def to_cancel(self):
+        self.state = 'cancel'
+
+    @api.multi
+    def to_assign(self):
+        self.state = 'assigned'
+
+    @api.multi
+    def to_approve(self):
+        self.state = 'approved'
+
+    @api.multi
+    def to_complete(self):
+        self.state = 'completed'
+
+    @api.multi
+    def to_draft(self):
+        self.state = 'draft'
+
+    @api.multi
+    def to_request(self):
+        self.state = 'requested'
 
 
 class MrLocation(models.Model):

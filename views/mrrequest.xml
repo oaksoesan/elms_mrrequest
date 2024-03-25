@@ -20,8 +20,26 @@
             <field name="arch" type="xml">
                 <form string="MR Request">
                     <header>
-                        <field name="state" widget="statusbar"
-                               statusbar_visible="requested,assigned,approved,completed"/>
+                        <button name="to_request" string="Confirm" type="object"
+                                states="draft" class="oe_highlight" group="base.mr_user"/>
+                        <button name="to_cancel" string="Cancel" type="object"
+                                states="requested" class="oe_highlight" group="base.mr_user"/>
+                        <button name="to_draft" string="Reset to draft"
+                                type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible': [('state', '!=', 'cancel')]}" group="base.mr_user"/>
+
+                        <button name="to_assign" string="Assign" type="object"
+                                states="requested" class="oe_highlight" group="base.mr_admin"
+                                />
+                        <button name="to_approve" string="Approve" type="object"
+                                states="assigned" class="oe_highlight" group="base.mr_approver"
+                                />
+                        <button name="to_complete" string="Completed"
+                                type="object" states="approved"
+                                class="oe_highlight" group="base.mr_admin"
+                               />
+                        <field name="state" widget="statusbar" statusbar_visible="requested,assigned,approved,completed"/>
                     </header>
                     <sheet>
                         <group>

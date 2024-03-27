@@ -21,32 +21,38 @@
                 <form string="MR Request">
                     <header>
                         <button name="to_request" string="Confirm" type="object"
-                                states="draft" class="oe_highlight" group="base.mr_user"/>
+                                states="draft" class="oe_highlight"
+                                group="base.mr_user"/>
                         <button name="to_cancel" string="Cancel" type="object"
-                                states="requested" class="oe_highlight" group="base.mr_user"/>
+                                states="requested" class="oe_highlight"
+                                group="base.mr_user"/>
                         <button name="to_draft" string="Reset to draft"
                                 type="object"
                                 class="oe_highlight"
-                                attrs="{'invisible': [('state', '!=', 'cancel')]}" group="base.mr_user"/>
+                                attrs="{'invisible': [('state', '!=', 'cancel')]}"
+                                group="base.mr_user"/>
 
                         <button name="to_assign" string="Assign" type="object"
-                                states="requested" class="oe_highlight" group="base.mr_admin"
-                                />
+                                states="requested" class="oe_highlight"
+                                group="base.mr_admin"
+                        />
                         <button name="to_approve" string="Approve" type="object"
-                                states="assigned" class="oe_highlight" group="base.mr_approver"
-                                />
+                                states="assigned" class="oe_highlight"
+                                group="base.mr_approver"
+                        />
                         <button name="to_complete" string="Completed"
                                 type="object" states="approved"
                                 class="oe_highlight" group="base.mr_admin"
-                               />
-                        <field name="state" widget="statusbar" statusbar_visible="requested,assigned,approved,completed"/>
+                        />
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="requested,assigned,approved,completed"/>
                     </header>
                     <sheet>
-                        <group>
-                            <div class="oe_title">
-                                <h2>Request Information</h2>
+                        <div>
+                            <h2>Request Information</h2>
+                            <group>
                                 <group>
-                                    <field name="res_partner_id"/>
+                                    <field name="res_user_id"/>
                                     <field name="department"/>
                                     <field name="priority" widget="priority"
                                            class=""/>
@@ -55,31 +61,47 @@
                                     <field name="job_section"/>
                                     <field name="problem_detail"/>
                                 </group>
-                            </div>
-                            <div class="oe_title">
-                                <h2>Admin Information</h2>
-                                <group>
-                                    <field name="hr_employee_id"/>
-                                    <field name="estimate_cost"/>
-                                    <field name="estimate_start_time"/>
-                                    <field name="estimate_end_time"/>
-                                    <field name="actual_start_time"/>
-                                    <field name="actual_end_time"/>
-                                    <field name="job_status"/>
-                                    <field name="maintenance_detail"/>
-                                </group>
-                            </div>
-                            <div class="oe_title">
-                                <h2>Feedback</h2>
-                                <group>
-                                    <field name="received_status"/>
-                                    <field name="received_date_time"/>
-                                    <field name="received_note"/>
-                                    <field name="approver_comment"/>
-                                </group>
-                            </div>
-                        </group>
+                                <group></group>
+                            </group>
+                        </div>
+                        <notebook>
+                            <page string="Maintenance Information">
+                                <div>
+                                    <group>
+                                        <group>
+                                            <field name="hr_employee_id"/>
+                                            <field name="estimate_cost"/>
+                                            <field name="estimate_start_time"/>
+                                            <field name="estimate_end_time"/>
+                                            <field name="actual_start_time"/>
+                                            <field name="actual_end_time"/>
+                                            <field name="job_status"/>
+                                            <field name="maintenance_detail"/>
+                                        </group>
+                                        <group></group>
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Receiver Comment">
+                                <div>
+                                    <group>
+                                        <group>
+                                            <field name="received_status"/>
+                                            <field name="received_date_time"/>
+                                            <field name="received_note"/>
+                                            <field name="approver_comment"/>
+                                        </group>
+                                        <group></group>
+                                    </group>
+                                </div>
+                            </page>
+                        </notebook>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"
+                               widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
                 </form>
             </field>
         </record>

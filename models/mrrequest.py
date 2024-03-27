@@ -3,6 +3,7 @@ from openerp import fields, models, api
 
 class MrRequest(models.Model):
     _name = 'mrrequest'
+    _inherit = ['mail.thread']
     _description = 'MR request model'
 
     # Left Panel (User)
@@ -15,7 +16,7 @@ class MrRequest(models.Model):
         ('approved', 'Approved'),
         ('completed', 'Completed'),
     ], string='State', default="draft")
-    res_partner_id = fields.Many2one('res.partner', required=True,
+    res_user_id = fields.Many2one('res.users', required=True,
                                      string='Requested By')
     department = fields.Many2one('hr.department', string="Department",
                                  store=True)
@@ -98,3 +99,9 @@ class MrLocation(models.Model):
     _name = 'mrrequest.location'
     _description = 'Locations for MR requests'
     name = fields.Char(string='Location Name')
+
+#TODO: Change admin info to maintenanace information
+#TODO: Wider feedback session
+#TODO: Track visibility
+#TODO: Request Users to users
+#TODO: Security Group

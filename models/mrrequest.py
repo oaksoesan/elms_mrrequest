@@ -38,22 +38,22 @@ class MrRequest(models.Model):
         ('acmv', 'ACMV'),
         ('civil', 'Civil'),
         ('general', 'General'),
-    ], track_visibility='onchange')
+    ], track_visibility='onchange', string='Job Section')
     problem_detail = fields.Text('Problem Detail', track_visibility='onchange')
 
     # Right Panel (MR Admin)
     hr_employee_id = fields.Many2one('hr.employee', string='Assign To',
                                      track_visibility='onchange')
     estimate_cost = fields.Char('Estimated Cost', track_visibility='onchange')
-    estimate_start_time = fields.Datetime(string='Estimate Start at', track_visibility='onchange')
-    estimate_end_time = fields.Datetime(string='Estimate End at', track_visibility='onchange')
-    actual_start_time = fields.Datetime(string='Actual Start at', track_visibility='onchange')
-    actual_end_time = fields.Datetime(string='Actual End at', track_visibility='onchange')
+    estimate_start_time = fields.Datetime(string='Estimate Start At', track_visibility='onchange')
+    estimate_end_time = fields.Datetime(string='Estimate End At', track_visibility='onchange')
+    actual_start_time = fields.Datetime(string='Actual Start At', track_visibility='onchange')
+    actual_end_time = fields.Datetime(string='Actual End At', track_visibility='onchange')
     job_status = fields.Selection([
         ('pending', 'Pending'),
         ('in_progress', 'In Progress'),
         ('completed', 'Completed'),
-    ], track_visibility='onchange')
+    ], track_visibility='onchange', string='Job Status')
     maintenance_detail = fields.Text('Maintenance Detail', track_visibility='onchange')
 
     # Receiving Panel

@@ -74,7 +74,7 @@
                                 <group></group>
                             </group>
                         </div>
-                        <notebook>
+                        <notebook attrs="{'invisible': [('state', '=', 'draft')]}">
                             <page string="Maintenance Information">
                                 <div>
                                     <group>
@@ -92,7 +92,7 @@
                                     </group>
                                 </div>
                             </page>
-                            <page string="Receiver Comment">
+                            <page string="Receiver Comment" attrs="{'invisible': [('state', '!=', 'completed')]}">
                                 <div>
                                     <group>
                                         <group>

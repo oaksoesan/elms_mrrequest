@@ -2,17 +2,27 @@
 <openerp>
     <data>
         <record id="action_mrrequest" model="ir.actions.act_window">
-            <field name="name">MR Request Action</field>
+            <field name="name">Maintenance Request</field>
             <field name="res_model">mrrequest</field>
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="mrrequest_menu" name="MR request" sequence="15"/>
-        <menuitem id="mmrequest_info_menu" name="MR request"
+        <record id="action_mr_location" model="ir.actions.act_window">
+            <field name="name">Maintenance Location</field>
+            <field name="res_model">mrrequest.location</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="mrrequest_menu"
+                  name="Maintenance Request Management System" sequence="15"/>
+        <menuitem id="mmrequest_info_menu" name="Menu"
                   parent="elms_mrrequest.mrrequest_menu" sequence="1"/>
-        <menuitem id="mmrequest_info1_menu" name="MR request"
+        <menuitem id="mmrequest_info1_menu" name="Maintenance Request"
                   parent="elms_mrrequest.mmrequest_info_menu" sequence="1"
                   action="action_mrrequest"/>
+        <menuitem id="mr_location_menu" name="Maintenance Location"
+                  parent="elms_mrrequest.mmrequest_info_menu" sequence="2"
+                  action="action_mr_location"/>
 
         <record id="view_mrrequest_form" model="ir.ui.view">
             <field name="name">mrrequest.form</field>
@@ -112,8 +122,46 @@
             <field name="model">mrrequest</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="name"/>
+                    <field name="res_user_id"/>
+                    <field name="date_time"/>
+                    <field name="mr_location_id"/>
+                    <field name="estimate_cost"/>
+                    <field name="actual_start_time"/>
+                    <field name="actual_end_time"/>
+                    <field name="job_status"/>
+                    <field name="priority"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="mr_location_view_form" model="ir.ui.view">
+            <field name="name">MR Location Form</field>
+            <field name="model">mrrequest.location</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="mr_location_view_tree" model="ir.ui.view">
+            <field name="name">MR Location Tree</field>
+            <field name="model">mrrequest.location</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
     </data>
 </openerp>
+
+        <!-- TODO: Add MR Location View -->
+        <!-- TODO: Add MR List View -->
+        <!-- TODO: Check Security Group  -->
+        <!-- TODO: Show Receiver Page on only Job Status = Done-->

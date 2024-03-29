@@ -12,8 +12,8 @@ class MrRequest(models.Model):
         ('draft', 'Draft'),
         ('cancel', 'Canceled'),
         ('requested', 'Requested'),
-        ('assigned', 'Assigned'),
         ('approved', 'Approved'),
+        ('in_progress', 'In Progress'),
         ('completed', 'Completed'),
     ], string='State', default="draft", track_visibility='onchange')
     res_user_id = fields.Many2one('res.users', required=True,
@@ -46,14 +46,7 @@ class MrRequest(models.Model):
                                      track_visibility='onchange')
     estimate_cost = fields.Char('Estimated Cost', track_visibility='onchange')
     estimate_start_time = fields.Datetime(string='Estimate Start At', track_visibility='onchange')
-    estimate_end_time = fields.Datetime(string='Estimate End At', track_visibility='onchange')
     actual_start_time = fields.Datetime(string='Actual Start At', track_visibility='onchange')
-    actual_end_time = fields.Datetime(string='Actual End At', track_visibility='onchange')
-    job_status = fields.Selection([
-        ('pending', 'Pending'),
-        ('in_progress', 'In Progress'),
-        ('completed', 'Completed'),
-    ], track_visibility='onchange', string='Job Status')
     maintenance_detail = fields.Text('Maintenance Detail', track_visibility='onchange')
 
     # Receiving Panel
@@ -76,7 +69,7 @@ class MrRequest(models.Model):
 
     @api.multi
     def to_assign(self):
-        self.state = 'assigned'
+        self.state = 'in_progress'
 
     @api.multi
     def to_approve(self):
@@ -109,8 +102,3 @@ class MrLocation(models.Model):
     _description = 'Locations for MR requests'
     name = fields.Char(string='Location Name')
 
-#TODO: Change admin info to maintenanace information
-#TODO: Wider feedback session
-#TODO: Track visibility
-#TODO: Request Users to users
-#TODO: Security Group

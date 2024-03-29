@@ -14,7 +14,7 @@
         </record>
 
         <menuitem id="mrrequest_menu"
-                  name="Maintenance Request Management System" sequence="15"/>
+                  name="Maintenance Request" sequence="15"/>
         <menuitem id="mmrequest_info_menu" name="Menu"
                   parent="elms_mrrequest.mrrequest_menu" sequence="1"/>
         <menuitem id="mmrequest_info1_menu" name="Maintenance Request"
@@ -41,21 +41,20 @@
                                 class="oe_highlight"
                                 attrs="{'invisible': [('state', '!=', 'cancel')]}"
                                 group="base.mr_user"/>
-
-                        <button name="to_assign" string="Assign" type="object"
-                                states="requested" class="oe_highlight"
-                                group="base.mr_admin"
-                        />
                         <button name="to_approve" string="Approve" type="object"
-                                states="assigned" class="oe_highlight"
+                                states="requested" class="oe_highlight"
                                 group="base.mr_approver"
                         />
+                        <button name="to_assign" string="Assign" type="object"
+                                states="approved" class="oe_highlight"
+                                group="base.mr_admin"
+                        />
                         <button name="to_complete" string="Completed"
-                                type="object" states="approved"
+                                type="object" states="in_progress"
                                 class="oe_highlight" group="base.mr_admin"
                         />
                         <field name="state" widget="statusbar"
-                               statusbar_visible="requested,assigned,approved,completed"/>
+                               statusbar_visible="requested,approved,in_progress,completed"/>
                     </header>
                     <sheet>
                         <div>
@@ -64,8 +63,7 @@
                                 <group>
                                     <field name="res_user_id"/>
                                     <field name="department"/>
-                                    <field name="priority" widget="priority"
-                                           class=""/>
+                                    <field name="priority" widget="priority"/>
                                     <field name="date_time"/>
                                     <field name="mr_location_id"/>
                                     <field name="job_section"/>
@@ -73,8 +71,14 @@
                                 </group>
                                 <group></group>
                             </group>
+                            <div attrs="{'invisible': [('state', '=', 'draft')]}">
+                                <h2>Approver Comment</h2>
+                                <div>
+                                    <field name="approver_comment"/>
+                                </div>
+                            </div>
                         </div>
-                        <notebook attrs="{'invisible': [('state', '=', 'draft')]}">
+                        <notebook>
                             <page string="Maintenance Information">
                                 <div>
                                     <group>
@@ -82,29 +86,24 @@
                                             <field name="hr_employee_id"/>
                                             <field name="estimate_cost"/>
                                             <field name="estimate_start_time"/>
-                                            <field name="estimate_end_time"/>
                                             <field name="actual_start_time"/>
-                                            <field name="actual_end_time"/>
-                                            <field name="job_status"/>
                                             <field name="maintenance_detail"/>
                                         </group>
                                         <group></group>
                                     </group>
                                 </div>
                             </page>
-                            <page string="Receiver Comment" attrs="{'invisible': [('state', '!=', 'completed')]}">
-                                <div>
+                            <page string="Receiver Comment"/>
+                            <div>
+                                <group>
                                     <group>
-                                        <group>
-                                            <field name="received_status"/>
-                                            <field name="received_date_time"/>
-                                            <field name="received_note"/>
-                                            <field name="approver_comment"/>
-                                        </group>
-                                        <group></group>
+                                        <field name="received_status"/>
+                                        <field name="received_date_time"/>
+                                        <field name="received_note"/>
                                     </group>
-                                </div>
-                            </page>
+                                    <group></group>
+                                </group>
+                            </div>
                         </notebook>
                     </sheet>
                     <div class="oe_chatter">
@@ -121,16 +120,22 @@
             <field name="name">MR request Tree</field>
             <field name="model">mrrequest</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree colors="black:state == 'draft';
+                              orange:state == 'requested';
+                              blue:state == 'approved';
+                              purple:state == 'in_progress';
+                              green:state == 'completed';
+                              grey:state == 'cancel';"
+                      default_order="">
                     <field name="name"/>
                     <field name="res_user_id"/>
                     <field name="date_time"/>
                     <field name="mr_location_id"/>
                     <field name="estimate_cost"/>
+                    <field name="estimate_start_time"/>
                     <field name="actual_start_time"/>
-                    <field name="actual_end_time"/>
-                    <field name="job_status"/>
                     <field name="priority"/>
+                    <field name="state"/>
                 </tree>
             </field>
         </record>
@@ -161,7 +166,3 @@
     </data>
 </openerp>
 
-        <!-- TODO: Add MR Location View -->
-        <!-- TODO: Add MR List View -->
-        <!-- TODO: Check Security Group  -->
-        <!-- TODO: Show Receiver Page on only Job Status = Done-->

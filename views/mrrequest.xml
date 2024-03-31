@@ -46,12 +46,14 @@
                                 group="base.mr_approver"
                         />
                         <button name="to_assign" string="Assign" type="object"
-                                states="approved" class="oe_highlight"
+                                class="oe_highlight"
+                                states="approved"
                                 group="base.mr_admin"
                         />
                         <button name="to_complete" string="Completed"
-                                type="object" states="in_progress"
+                                type="object"
                                 class="oe_highlight" group="base.mr_admin"
+                                attrs="{'invisible': [('finish_time', '=', False)]}"
                         />
                         <field name="state" widget="statusbar"
                                statusbar_visible="requested,approved,in_progress,completed"/>
@@ -71,10 +73,16 @@
                                 </group>
                                 <group></group>
                             </group>
-                            <div attrs="{'invisible': [('state', '=', 'draft')]}">
-                                <h2>Approver Comment</h2>
+                            <div>
+                                <h2 attrs="{'invisible': ['|', ('state', '=', 'draft'), ('state', '=', 'requested')]}">
+                                    Approver Comment
+                                    &#xA;
+                                </h2>
                                 <div>
-                                    <field name="approver_comment"/>
+                                    <p style="color: blue;">
+                                        <field name="approver_comment"
+                                               attrs="{'invisible': ['|', ('state', '=', 'draft'), ('state', '=', 'requested')]}"/>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -86,14 +94,14 @@
                                             <field name="hr_employee_id"/>
                                             <field name="estimate_cost"/>
                                             <field name="estimate_start_time"/>
-                                            <field name="actual_start_time"/>
+                                            <field name="finish_time"  attrs="{'invisible': [('state', '!=', 'in_progress')]}"/>
                                             <field name="maintenance_detail"/>
                                         </group>
                                         <group></group>
                                     </group>
                                 </div>
                             </page>
-                            <page string="Receiver Comment"/>
+                            <page string="Receiver Comment" attrs="{'invisible': [('state', '!=', 'completed')]}">
                             <div>
                                 <group>
                                     <group>
@@ -104,6 +112,7 @@
                                     <group></group>
                                 </group>
                             </div>
+                            </page>
                         </notebook>
                     </sheet>
                     <div class="oe_chatter">
@@ -129,11 +138,11 @@
                       default_order="">
                     <field name="name"/>
                     <field name="res_user_id"/>
-                    <field name="date_time"/>
                     <field name="mr_location_id"/>
                     <field name="estimate_cost"/>
+                    <field name="date_time"/>
                     <field name="estimate_start_time"/>
-                    <field name="actual_start_time"/>
+                    <field name="finish_time"/>
                     <field name="priority"/>
                     <field name="state"/>
                 </tree>
